@@ -6,7 +6,7 @@ namespace BridalGowns.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ClienstController : ControllerBase
+    public class ClientsController : ControllerBase
     {
 
 

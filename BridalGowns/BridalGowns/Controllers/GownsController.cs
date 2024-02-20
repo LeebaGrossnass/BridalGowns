@@ -14,13 +14,13 @@ namespace BridalGowns.Controllers
             throw new NotImplementedException();                                           
         }
 
-        [HttpGet]
+        [HttpGet( "{id}")]
         public ActionResult<Gown> Get(string id)
         {
             throw new NotImplementedException();
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public ActionResult<Gown> Delete(string id)
         {  
            throw new NotImplementedException();
@@ -32,8 +32,8 @@ namespace BridalGowns.Controllers
            throw null;
         }
 
-        [HttpPut]
-        public ActionResult<Gown> Update(Gown Gown) 
+        [HttpPut("{id}")]
+        public ActionResult<Gown> Update(string id, Gown Gown) 
         {
             throw null;
         }
