@@ -1,0 +1,3 @@
+﻿
+
+Scaffold-DbContext 'Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=H:\BridalGowns\BridalGowns\BridalGowns\DAL\BridalGownDB.mdf;Integrated Security=True;Connect Timeout=30' Microsoft.EntityFrameworkCore.SqlServer –Context BridalContext -OutputDir Models  -Force -NoOnConfiguring
