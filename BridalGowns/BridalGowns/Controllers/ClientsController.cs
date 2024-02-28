@@ -1,4 +1,5 @@
-﻿using DAL.Models;
+﻿using DAL.Implementation;
+using DAL.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,18 +9,22 @@ namespace BridalGowns.Controllers
     [ApiController]
     public class ClientsController : ControllerBase
     {
-
+        IClientRepo clientRepo;
+        public ClientsController(IClientRepo clientRepo)
+        {
+            this.clientRepo = clientRepo;
+        }
 
         [HttpGet]
         public ActionResult<List<Client>> GetAll()
         {
-            throw new NotImplementedException();
+            return GetAll();
         }
 
         [HttpGet("{ID}")]
         public ActionResult<Client> Get(string ID)
         {
-            throw null;
+            return Get(ID);
         }
 
         [HttpPut("{ID}")]
