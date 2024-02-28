@@ -1,4 +1,5 @@
-﻿using DAL.Models;
+﻿using DAL.Implementation;
+using DAL.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,16 +9,22 @@ namespace BridalGowns.Controllers
     [ApiController]
     public class CrownsController : ControllerBase
     {
+        ICrownRepo crownRepo;
+        public CrownsController(ICrownRepo crownRepo)
+        {
+            this.crownRepo = crownRepo;
+        }
+
         [HttpGet]
         public ActionResult<List<Crown>> GetAll()
         {
-           throw new NotImplementedException();
+            return GetAll();
         }
 
-        [HttpGet("{CrownCode}")]
-        public ActionResult<Crown> Get(int crownCode)
+        [HttpGet("{CrownName}")]
+        public ActionResult<Crown> Get(string crownName)
         {
-            throw null;
+            return Get(crownName);
         }
 
         [HttpPut("{CrownCode}")]
