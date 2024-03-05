@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DAL.Implementation
 {
-    internal interface ISceduleRepo
+    public interface ISceduleRepo
     {
     }
 }

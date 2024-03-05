@@ -1,4 +1,5 @@
-﻿using DAL.Models;
+﻿using DAL.Implementation;
+using DAL.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,6 +9,11 @@ namespace BridalGowns.Controllers
     [ApiController]
     public class GownsController : ControllerBase
     {
+        IGownRepo gownRepo;
+        public GownsController(IGownRepo gownRepo) 
+        { 
+            this.gownRepo = gownRepo;
+        }
         [HttpGet]
         public ActionResult<List<Gown>> GetAll()
         {
