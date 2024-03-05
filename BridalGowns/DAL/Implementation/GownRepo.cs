@@ -10,21 +10,6 @@ namespace DAL.Implementation
 {
     public class GownRepo : IGownRepo
     {
-<<<<<<< HEAD
-        public Gown Add(Gown gown)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Gown Delete(string id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Gown Get(string id)
-        {
-            throw new NotImplementedException();
-=======
         BridalContext context;
         public GownRepo(BridalContext context)
         {
@@ -65,16 +50,11 @@ namespace DAL.Implementation
                 Debug.WriteLine(ex.ToString());
                 throw new Exception($"Error in getting single Gown {name} data");
             }
->>>>>>> aa828caf716806d70ffc9a66d99ce8e700724458
         }
 
         public List<Gown> GetAll()
         {
-<<<<<<< HEAD
-            throw new NotImplementedException();
-=======
             return context.Gowns.ToList();
->>>>>>> aa828caf716806d70ffc9a66d99ce8e700724458
         }
 
         public Gown Update(string id, Gown gown)
