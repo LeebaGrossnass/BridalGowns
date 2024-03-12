@@ -1,4 +1,4 @@
-﻿using DAL.Implementation;
+﻿using DAL.API;
 using DAL.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,34 +14,35 @@ namespace BridalGowns.Controllers
         { 
             this.gownRepo = gownRepo;
         }
+
         [HttpGet]
         public ActionResult<List<Gown>> GetAll()
         {
-            throw new NotImplementedException();                                           
+            return gownRepo.GetAll();                                           
         }
 
         [HttpGet( "{id}")]
         public ActionResult<Gown> Get(string id)
         {
-            throw new NotImplementedException();
+            return gownRepo.Get(id);
         }
 
         [HttpDelete("{id}")]
         public ActionResult<Gown> Delete(string id)
         {  
-           throw new NotImplementedException();
+           return gownRepo.Delete(id);
         }
 
         [HttpPost]
-        public ActionResult<Gown> Add(Gown Gown)
+        public ActionResult<Gown> Add(Gown gown)
         {
-           throw null;
+           return gownRepo.Add(gown);
         }
 
-        [HttpPut("{id}")]
-        public ActionResult<Gown> Update(string id, Gown Gown) 
+        [HttpPut]
+        public ActionResult<Gown> Update(Gown gown) 
         {
-            throw null;
+            return gownRepo.Update(gown);
         }
 
 

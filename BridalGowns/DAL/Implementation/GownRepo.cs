@@ -1,4 +1,5 @@
-﻿using DAL.Models;
+﻿using DAL.API;
+using DAL.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -35,7 +36,7 @@ namespace DAL.Implementation
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.ToString());
-                throw new Exception($"Error in deleting  Gown {name} data");
+                throw new Exception($"Error in deleting Gown {name} data");
             }
         }
 
@@ -57,9 +58,18 @@ namespace DAL.Implementation
             return context.Gowns.ToList();
         }
 
-        public Gown Update(string id, Gown gown)
+        public Gown Update(Gown gown)
         {
-            throw new NotImplementedException();
+            foreach (Gown g in context.Gowns.ToList())
+            {
+                if (g.GownCode == gown.GownCode)
+                {
+                    g.Price = gown.Price;
+                    break;
+                }
+            }
+            context.SaveChanges();
+            return gown;
         }
     }
 }

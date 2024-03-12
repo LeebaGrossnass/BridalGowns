@@ -1,4 +1,4 @@
-﻿using DAL.Implementation;
+﻿using DAL.API;
 using DAL.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -18,30 +18,31 @@ namespace BridalGowns.Controllers
         [HttpGet]
         public ActionResult<List<Crown>> GetAll()
         {
-            return GetAll();
+            return crownRepo.GetAll();
         }
 
         [HttpGet("{CrownName}")]
         public ActionResult<Crown> Get(string crownName)
         {
-            return Get(crownName);
+            return crownRepo.Get(crownName);
         }
 
-        [HttpPut("{CrownCode}")]
-        public ActionResult<Crown> Update(int crownCode, Crown crown)
+        [HttpPut]
+        public ActionResult<Crown> Update(Crown crown)
         {
-            return null;
+            return crownRepo.Update(crown);
         }
 
         [HttpPost]
         public ActionResult<Crown> Add(Crown crown)
         {
-            return null;
+            return crownRepo.Add(crown);
         }
-        [HttpDelete("{CrownCode}")]
-        public ActionResult<Crown> Delete(int crownCode)
+
+        [HttpDelete("{CrownName}")]
+        public ActionResult<Crown> Delete(String crownName)
         {
-            return null;
+            return crownRepo.Delete(crownName);
         }
 
 

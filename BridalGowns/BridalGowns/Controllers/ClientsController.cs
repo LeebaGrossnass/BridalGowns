@@ -1,4 +1,4 @@
-﻿using DAL.Implementation;
+﻿using DAL.API;
 using DAL.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -18,13 +18,13 @@ namespace BridalGowns.Controllers
         [HttpGet]
         public ActionResult<List<Client>> GetAll()
         {
-            return GetAll();
+            return clientRepo.GetAll();
         }
 
         [HttpGet("{ID}")]
         public ActionResult<Client> Get(string ID)
         {
-            return Get(ID);
+            return clientRepo.Get(ID);
         }
 
         [HttpPut("{ID}")]

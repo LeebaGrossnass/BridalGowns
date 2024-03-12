@@ -15,7 +15,7 @@ namespace DAL.Implementation
 
         Crown Add(Crown crown);
 
-        Crown Update(string id, Crown crown);
+        Crown Update(Crown crown);
 
         Crown Delete(string name);
     }

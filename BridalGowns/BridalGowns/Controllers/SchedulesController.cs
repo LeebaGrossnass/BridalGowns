@@ -1,4 +1,5 @@
-﻿using DAL.Models;
+﻿using DAL.API;
+using DAL.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,22 +9,32 @@ namespace BridalGowns.Controllers
     [ApiController]
     public class SchedulesController : ControllerBase
     {
-        [HttpGet]
-        public ActionResult<Gown> Get(string id)
+        ISceduleRepo sceduleRepo;
+        public SchedulesController(ISceduleRepo sceduleRepo)
         {
-            throw new NotImplementedException();
+            this.sceduleRepo = sceduleRepo;
         }
 
-        [HttpDelete]
-        public ActionResult<Gown> Delete(string id)
+        [HttpGet("{time}")]
+        public ActionResult<Schedule> Get(DateTime time)
         {
-            throw new NotImplementedException();
+            return sceduleRepo.Get(time);
+        }
+
+        [HttpDelete("{time}")]
+        public ActionResult<Schedule> Delete(DateTime time)
+        {
+            return sceduleRepo.Delete(time);
         }
 
         [HttpPost]
-        public ActionResult<Gown> Add(Gown Gown)
+        public ActionResult<Schedule> Add(Schedule schedule)
         {
-            throw null;
+            return sceduleRepo.Add(schedule);
+        }
+        public ActionResult<List<Schedule>> GetAll()
+        {
+            return sceduleRepo.GetAll();
         }
     }
 }

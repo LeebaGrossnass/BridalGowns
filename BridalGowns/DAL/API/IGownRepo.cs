@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DAL.Implementation
+namespace DAL.API
 {
     public interface IGownRepo
     {
@@ -15,7 +15,7 @@ namespace DAL.Implementation
 
         Gown Add(Gown gown);
 
-        Gown Update(string id, Gown gown);
+        Gown Update(Gown gown);
 
         Gown Delete(string name);
     }

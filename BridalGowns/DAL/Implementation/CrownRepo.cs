@@ -1,4 +1,5 @@
-﻿using DAL.Models;
+﻿using DAL.API;
+using DAL.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -49,7 +50,7 @@ namespace DAL.Implementation
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.ToString());
-                throw new Exception($"Error in getting single Gown {name} data");
+                throw new Exception($"Error in getting single Crown {name} data");
             }
         }
 
@@ -58,9 +59,19 @@ namespace DAL.Implementation
             return context.Crowns.ToList();
         }
 
-        public Crown Update(string id, Crown crown)
+        public Crown Update(Crown crown)
         {
-            throw new NotImplementedException();
+            foreach (Crown c in context.Crowns.ToList())
+            {
+                if (c.CrownCode == crown.CrownCode)
+                {
+                    c.Price = crown.Price;
+                    c.Qtty = crown.Qtty;
+                    break;
+                }
+            }
+            context.SaveChanges();
+            return crown;
         }
     }
 }

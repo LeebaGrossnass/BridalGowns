@@ -1,4 +1,5 @@
-﻿using DAL.Models;
+﻿using DAL.API;
+using DAL.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,33 +9,40 @@ namespace BridalGowns.Controllers
     [ApiController]
     public class MeetingsController : ControllerBase
     {
+        IMeetingRepo meetingRepo;
+        public MeetingsController(IMeetingRepo meetingRepo)
+        {
+            this.meetingRepo = meetingRepo;
+        }
+
         [HttpGet]
         public ActionResult<List<Meeting>> GetAll()
         {
-            throw new NotImplementedException();
+            return meetingRepo.GetAll();
         }
 
-        [HttpGet("{code}")]
-        public ActionResult<Meeting> Get(int code)
+        [HttpGet("{time}")]
+        public ActionResult<Meeting> Get(DateTime time)
         {
-            throw null;
+            return meetingRepo.Get(time);
         }
 
-        [HttpPut("{code}")]
-        public ActionResult<Meeting> Update(int code, Meeting meeting)
+        [HttpPut]
+        public ActionResult<Meeting> Update(Meeting meeting)
         {
-            return null;
+            return meetingRepo.Update(meeting);
         }
 
         [HttpPost]
         public ActionResult<Meeting> Add(Meeting meeting)
         {
-            return null;
+            return meetingRepo.Add(meeting);
         }
-        [HttpDelete("{code}")]
-        public ActionResult<Crown> Delete(int code)
+
+        [HttpDelete("{time}")]
+        public ActionResult<Meeting> Delete(DateTime time)
         {
-            return null;
+            return meetingRepo.Delete(time);
         }
 
     }

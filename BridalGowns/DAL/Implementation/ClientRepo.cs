@@ -1,4 +1,5 @@
-﻿using DAL.Models;
+﻿using DAL.API;
+using DAL.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -46,21 +47,18 @@ namespace DAL.Implementation
             return context;
         }
 
-        public Client Update(string id, Client client)
+        public Client Update(Client client)
         {
-
-            foreach (var c in context.Clients.ToList())
+            foreach (Client c in context.Clients.ToList())
             {
-                if (c.Id == id)
+                if (c.Id == client.Id)
                 {
-                    c.Id= client.Id;
-                    c.FirstName= client.FirstName;
-                    c.LastName= client.LastName;
-                    c.Email= client.Email;
-                    c.PhoneNumber= client.PhoneNumber;
+                    c.Email = client.Email;
+                    c.PhoneNumber = client.PhoneNumber;
                     break;
                 }
             }
+            context.SaveChanges();
             return client;
         }
     }

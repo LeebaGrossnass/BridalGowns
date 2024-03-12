@@ -1,4 +1,5 @@
-﻿using DAL.Models;
+﻿using DAL.API;
+using DAL.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,28 +9,35 @@ namespace BridalGowns.Controllers
     [ApiController]
     public class OrdersController : ControllerBase
     {
+
+        IOrderRepo orderRepo;
+        public OrdersController(IOrderRepo orderRepo)
+        {
+            this.orderRepo = orderRepo;
+        }
+
         [HttpGet]
         public ActionResult<List<Order>> GetAll()
         {
-            throw new NotImplementedException();
+            return orderRepo.GetAll();
         }
 
         [HttpGet("{OrderNumber}")]
         public ActionResult<Order> Get(string orderNumber)
         {
-            throw null;
+            return orderRepo.Get(orderNumber);
         }
 
-        [HttpPut("{OrderNumber}")]
-        public ActionResult<Order> Update(string orderNumber, Order order)
+        [HttpPut]
+        public ActionResult<Order> Update(Order order)
         {
-            return null;
+            return orderRepo.Update(order);
         }
 
         [HttpPost]
         public ActionResult<Order> Add(Order order)
         {
-            return null;
+            return orderRepo.Add(order);
         }
 
     }
