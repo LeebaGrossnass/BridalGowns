@@ -1,7 +1,9 @@
-﻿using DAL.API;
-using DAL.Models;
+﻿using BL.DTO;
+using BL.Implementation;
+using BL;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using BL.API;
 
 namespace BridalGowns.Controllers
 {
@@ -10,34 +12,34 @@ namespace BridalGowns.Controllers
     public class OrdersController : ControllerBase
     {
 
-        IOrderRepo orderRepo;
-        public OrdersController(IOrderRepo orderRepo)
+        OrderService orderService;
+        public OrdersController(BLManager manager)
         {
-            this.orderRepo = orderRepo;
+            this.orderService = manager.orderService;
         }
 
         [HttpGet]
-        public ActionResult<List<Order>> GetAll()
+        public ActionResult<List<OrderDTO>> GetAll()
         {
-            return orderRepo.GetAll();
+            return orderService.GetAll();
         }
 
         [HttpGet("{OrderNumber}")]
-        public ActionResult<Order> Get(string orderNumber)
+        public ActionResult<OrderDTO> Get(string orderNumber)
         {
-            return orderRepo.Get(orderNumber);
+            return orderService.Get(orderNumber);
         }
 
         [HttpPut]
-        public ActionResult<Order> Update(Order order)
+        public ActionResult<OrderDTO> Update(OrderDTO order)
         {
-            return orderRepo.Update(order);
+            return orderService.Update(order);
         }
 
         [HttpPost]
-        public ActionResult<Order> Add(Order order)
+        public ActionResult<OrderDTO> Add(OrderDTO order)
         {
-            return orderRepo.Add(order);
+            return orderService.Add(order);
         }
 
     }

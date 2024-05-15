@@ -17,5 +17,7 @@ namespace DAL.API
 
         Order Update(Order order);
 
+        Order Delete(string orderNumber);
+
     }
 }

@@ -13,31 +13,37 @@ namespace DAL
     public class DALManager
     {
         public ClientRepo clientRepo { get; }
+        public ColorRepo colorRepo { get; }
         public CrownRepo crownRepo { get; }
         public GownRepo gownRepo { get; }
+        public MeetingScheduleRepo meetingScheduleRepo { get; }
         public MeetingRepo meetingRepo { get; }
         public OrderRepo orderRepo { get; }
-        public SceduleRepo sceduleRepo { get; }
+        public OrdersScheduleRepo ordersScheduleRepo { get; }
         public DALManager() 
         {
             ServiceCollection services = new();
 
             services.AddDbContext<BridalContext>();
             services.AddScoped<IClientRepo, ClientRepo>();
+            services.AddScoped<IColorRepo, ColorRepo>();
             services.AddScoped<ICrownRepo, CrownRepo>();
             services.AddScoped<IGownRepo, GownRepo>();
+            services.AddScoped<IMeetingScheduleRepo, MeetingScheduleRepo>();
             services.AddScoped<IMeetingRepo, MeetingRepo>();
             services.AddScoped<IOrderRepo, OrderRepo>();
-            services.AddScoped<ISceduleRepo, SceduleRepo>();
+            services.AddScoped<IOrdersScheduleRepo, OrdersScheduleRepo>();
 
             ServiceProvider serviceProvider = services.BuildServiceProvider();
 
-            clientRepo = serviceProvider.GetRequiredService<ClientRepo>();
-            crownRepo = serviceProvider.GetRequiredService<CrownRepo>();
-            gownRepo = serviceProvider.GetRequiredService<GownRepo>();
-            meetingRepo = serviceProvider.GetRequiredService<MeetingRepo>();
-            orderRepo = serviceProvider.GetRequiredService<OrderRepo>();
-            sceduleRepo = serviceProvider.GetRequiredService<SceduleRepo>();
+            clientRepo = (ClientRepo)serviceProvider.GetRequiredService<IClientRepo>();
+            colorRepo = (ColorRepo)serviceProvider.GetRequiredService<IColorRepo>();
+            crownRepo = (CrownRepo)serviceProvider.GetRequiredService<ICrownRepo>();
+            gownRepo = (GownRepo)serviceProvider.GetRequiredService<IGownRepo>();
+            meetingScheduleRepo = (MeetingScheduleRepo)serviceProvider.GetService<IMeetingScheduleRepo>();
+            meetingRepo = (MeetingRepo)serviceProvider.GetRequiredService<IMeetingRepo>();
+            orderRepo = (OrderRepo)serviceProvider.GetRequiredService<IOrderRepo>();
+            ordersScheduleRepo = (OrdersScheduleRepo)serviceProvider.GetRequiredService<IOrdersScheduleRepo>();
         }
     }
 }

@@ -1,7 +1,8 @@
-﻿using DAL.API;
-using DAL.Models;
+﻿using BL.Implementation;
+using BL;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using BL.DTO;
 
 namespace BridalGowns.Controllers
 {
@@ -9,40 +10,40 @@ namespace BridalGowns.Controllers
     [ApiController]
     public class GownsController : ControllerBase
     {
-        IGownRepo gownRepo;
-        public GownsController(IGownRepo gownRepo) 
-        { 
-            this.gownRepo = gownRepo;
+        GownService gownService;
+        public GownsController(BLManager manager)
+        {
+            this.gownService = manager.gownService;
         }
 
         [HttpGet]
-        public ActionResult<List<Gown>> GetAll()
+        public ActionResult<List<GownDTO>> GetAll()
         {
-            return gownRepo.GetAll();                                           
+            return gownService.GetAll();                                           
         }
 
         [HttpGet( "{id}")]
-        public ActionResult<Gown> Get(string id)
+        public ActionResult<GownDTO> Get(string id)
         {
-            return gownRepo.Get(id);
+            return gownService.Get(id);
         }
 
         [HttpDelete("{id}")]
-        public ActionResult<Gown> Delete(string id)
+        public ActionResult<GownDTO> Delete(string id)
         {  
-           return gownRepo.Delete(id);
+           return gownService.Delete(id);
         }
 
         [HttpPost]
-        public ActionResult<Gown> Add(Gown gown)
+        public ActionResult<GownDTO> Add(GownDTO gown)
         {
-           return gownRepo.Add(gown);
+           return gownService.Add(gown);
         }
 
         [HttpPut]
-        public ActionResult<Gown> Update(Gown gown) 
+        public ActionResult<GownDTO> Update(GownDTO gown) 
         {
-            return gownRepo.Update(gown);
+            return gownService.Update(gown);
         }
 
 

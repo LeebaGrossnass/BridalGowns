@@ -12,4 +12,6 @@ public partial class Meeting
     public DateTime MeetingTime { get; set; }
 
     public virtual Client Client { get; set; }
+
+    public virtual ICollection<OrderSchedule> MeetingsSchedules { get; set; } = new List<OrderSchedule>();
 }

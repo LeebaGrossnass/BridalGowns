@@ -66,7 +66,6 @@ namespace DAL.Implementation
                 if (c.CrownCode == crown.CrownCode)
                 {
                     c.Price = crown.Price;
-                    c.Qtty = crown.Qtty;
                     break;
                 }
             }

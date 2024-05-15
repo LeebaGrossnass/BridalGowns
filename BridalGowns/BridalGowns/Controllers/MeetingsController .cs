@@ -1,7 +1,9 @@
-﻿using DAL.API;
-using DAL.Models;
+﻿using BL.DTO;
+using BL.Implementation;
+using BL;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+
 
 namespace BridalGowns.Controllers
 {
@@ -9,40 +11,40 @@ namespace BridalGowns.Controllers
     [ApiController]
     public class MeetingsController : ControllerBase
     {
-        IMeetingRepo meetingRepo;
-        public MeetingsController(IMeetingRepo meetingRepo)
+        MeetingService meetingService;
+        public MeetingsController(BLManager manager)
         {
-            this.meetingRepo = meetingRepo;
+            this.meetingService = manager.meetingService;
         }
 
         [HttpGet]
-        public ActionResult<List<Meeting>> GetAll()
+        public ActionResult<List<MeetingDTO>> GetAll()
         {
-            return meetingRepo.GetAll();
+            return meetingService.GetAll();
         }
 
         [HttpGet("{time}")]
-        public ActionResult<Meeting> Get(DateTime time)
+        public ActionResult<MeetingDTO> Get(DateTime time)
         {
-            return meetingRepo.Get(time);
+            return meetingService.Get(time);
         }
 
         [HttpPut]
-        public ActionResult<Meeting> Update(Meeting meeting)
+        public ActionResult<MeetingDTO> Update(MeetingDTO meeting)
         {
-            return meetingRepo.Update(meeting);
+            return meetingService.Update(meeting);
         }
 
         [HttpPost]
-        public ActionResult<Meeting> Add(Meeting meeting)
+        public ActionResult<MeetingDTO> Add(MeetingDTO meeting)
         {
-            return meetingRepo.Add(meeting);
+            return meetingService.Add(meeting);
         }
 
         [HttpDelete("{time}")]
-        public ActionResult<Meeting> Delete(DateTime time)
+        public ActionResult<MeetingDTO> Delete(DateTime time)
         {
-            return meetingRepo.Delete(time);
+            return meetingService.Delete(time);
         }
 
     }

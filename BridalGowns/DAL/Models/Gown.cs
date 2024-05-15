@@ -11,7 +11,7 @@ public partial class Gown
 
     public string Description { get; set; }
 
-    public int Size { get; set; }
+    public string Size { get; set; }
 
     public int ColorId { get; set; }
 
@@ -23,5 +23,6 @@ public partial class Gown
 
     public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 
-    public virtual ICollection<Schedule> Schedules { get; set; } = new List<Schedule>();
+    public virtual ICollection<OrdersSchedule> OrdersSchedules { get; set; } = new List<OrdersSchedule>();
+
 }

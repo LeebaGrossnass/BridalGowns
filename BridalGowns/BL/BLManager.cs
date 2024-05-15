@@ -1,6 +1,7 @@
-﻿using DAL.API;
+﻿using BL.API;
+using BL.Implementation;
+using DAL;
 using DAL.Implementation;
-using DAL.Models;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -12,16 +13,38 @@ namespace BL
 {
     public class BLManager
     {
-        public ClientRepo clientRepo { get; }
-        public CrownRepo crownRepo { get; }
-        public GownRepo gownRepo { get; }
-        public MeetingRepo meetingRepo { get; }
-        public OrderRepo orderRepo { get; }
-        public SceduleRepo sceduleRepo { get; }
+        public ClientService clientService { get; }
+        public CrownService crownService { get; }
+        public GownService gownService { get; }
+        public MeetingScheduleService meetingScheduleService { get; }
+        public MeetingService meetingService { get; }
+        public OrdersScheduleService ordersScheduleService { get; }
+        public OrderService orderService { get; }
+
 
         public BLManager()
         {
             ServiceCollection services = new();
+            services.AddScoped<DALManager>();
+
+            services.AddScoped< IClientService, ClientService>();
+            services.AddScoped<ICrownService, CrownService>();
+            services.AddScoped<IGownService, GownService>();
+            services.AddScoped<IMeetingScheduleService, MeetingScheduleService>();
+            services.AddScoped<IMeetingService, MeetingService>();
+            services.AddScoped<IOrderService,OrderService>();
+            services.AddScoped<IOrdersScheduleService, OrdersScheduleService>();
+
+
+            ServiceProvider servicesProvider = services.BuildServiceProvider();
+            clientService = (ClientService)servicesProvider.GetRequiredService<IClientService>();
+            crownService = (CrownService)servicesProvider.GetRequiredService<ICrownService>();
+            gownService = (GownService)servicesProvider.GetRequiredService<IGownService>();
+            meetingScheduleService = (MeetingScheduleService)servicesProvider.GetRequiredService<IMeetingScheduleService>();
+            meetingService = (MeetingService)servicesProvider.GetRequiredService<IMeetingService>();
+            ordersScheduleService = (OrdersScheduleService)servicesProvider.GetRequiredService<IOrdersScheduleService>();
+            orderService = (OrderService)servicesProvider.GetRequiredService<IOrderService>();
+
 
         }
     

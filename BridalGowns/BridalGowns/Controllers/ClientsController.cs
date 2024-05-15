@@ -1,5 +1,6 @@
-﻿using DAL.API;
-using DAL.Models;
+﻿using BL;
+using BL.DTO;
+using BL.Implementation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,34 +10,34 @@ namespace BridalGowns.Controllers
     [ApiController]
     public class ClientsController : ControllerBase
     {
-        IClientRepo clientRepo;
-        public ClientsController(IClientRepo clientRepo)
+        ClientService clientService;
+        public ClientsController(BLManager manager)
         {
-            this.clientRepo = clientRepo;
+            this.clientService = manager.clientService;
         }
 
         [HttpGet]
-        public ActionResult<List<Client>> GetAll()
+        public ActionResult<List<ClientDTO>> GetAll()
         {
-            return clientRepo.GetAll();
+            return clientService.GetAll();
         }
 
         [HttpGet("{ID}")]
-        public ActionResult<Client> Get(string ID)
+        public ActionResult<ClientDTO> Get(string ID)
         {
-            return clientRepo.Get(ID);
+            return clientService.Get(ID);
         }
 
         [HttpPut("{ID}")]
-        public ActionResult<Client> Update(string ID, Client client)
+        public ActionResult<ClientDTO> Update(ClientDTO client)
         {
-            return null;
+            return clientService.Update(client);
         }
 
         [HttpPost]
-        public ActionResult<Crown> Add(Client client)
+        public ActionResult<ClientDTO> Add(ClientDTO client)
         {
-            return null;
+            return clientService.Add(client);
         }
 
     }

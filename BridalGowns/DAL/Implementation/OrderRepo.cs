@@ -1,5 +1,6 @@
 ﻿using DAL.API;
 using DAL.Models;
+using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -56,6 +57,22 @@ namespace DAL.Implementation
             }
             context.SaveChanges();
             return order;
+        }
+
+        public Order Delete(string OrderNumber)
+        {
+            try
+            {
+                var orderToDelete = context.Orders.Where(o => o.OrderNumber == OrderNumber).FirstOrDefault();
+                context.Orders.Remove(orderToDelete);
+                context.SaveChanges();
+                return orderToDelete;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.ToString());
+                throw new Exception($"Error in deleting order {OrderNumber} data");
+            }
         }
     }
 }

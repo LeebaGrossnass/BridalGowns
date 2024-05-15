@@ -11,7 +11,7 @@ public partial class Order
 
     public string GownCode { get; set; }
 
-    public int? CrownCode { get; set; }
+    public string CrownCode { get; set; }
 
     public string ClientId { get; set; }
 
@@ -19,7 +19,7 @@ public partial class Order
 
     public bool? PickedUp { get; set; }
 
-    public bool Returned { get; set; }
+    public bool? Returned { get; set; }
 
     public virtual Client Client { get; set; }
 

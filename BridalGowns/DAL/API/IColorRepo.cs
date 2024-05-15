@@ -7,15 +7,14 @@ using System.Threading.Tasks;
 
 namespace DAL.API
 {
-    public interface IClientRepo
+    public interface IColorRepo
     {
-        List<Client> GetAll();
+        List<Color> GetAll();
 
-        Client Get(string id);
+        Color Get(string name);
 
-        Client Add(Client client);
+        Color Add(Color color);
 
-        Client Update(Client client);
-
+        Color Delete(string name);
     }
 }

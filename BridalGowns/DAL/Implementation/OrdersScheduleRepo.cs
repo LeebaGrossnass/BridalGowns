@@ -9,27 +9,27 @@ using System.Threading.Tasks;
 
 namespace DAL.Implementation
 {
-    public class SceduleRepo : ISceduleRepo
+    public class OrdersScheduleRepo : IOrdersScheduleRepo
     {
         BridalContext context;
-        public SceduleRepo(BridalContext context)
+        public OrdersScheduleRepo(BridalContext context)
         {
             this.context = context;
         }
 
-        public Schedule Add(Schedule schedule)
+        public OrdersSchedule Add(OrdersSchedule ordersSchedule)
         {
-            context.Schedules.Add(schedule);
+            context.OrdersSchedules.Add(ordersSchedule);
             context.SaveChanges();
-            return schedule;
+            return ordersSchedule;
         }
 
-        public Schedule Delete(DateTime time)
+        public OrdersSchedule Delete(DateTime time)
         {
             try
             {
-                var scheduleToDelete = context.Schedules.Where(s => s.Date == time).FirstOrDefault();
-                context.Schedules.Remove(scheduleToDelete);
+                var scheduleToDelete = context.OrdersSchedules.Where(s => s.Date == time).FirstOrDefault();
+                context.OrdersSchedules.Remove(scheduleToDelete);
                 context.SaveChanges();
                 return scheduleToDelete;
             }
@@ -40,11 +40,11 @@ namespace DAL.Implementation
             }
         }
 
-        public Schedule Get(DateTime time)
+        public OrdersSchedule Get(DateTime time)
         {
             try
             {
-                return context.Schedules.Where(s => s.Date == time).FirstOrDefault();
+                return context.OrdersSchedules.Where(s => s.Date == time).FirstOrDefault();
             }
             catch (Exception ex)
             {
@@ -52,9 +52,9 @@ namespace DAL.Implementation
                 throw new Exception($"Error in getting single date {time} data");
             }
         }
-        public List<Schedule> GetAll()
+        public List<OrdersSchedule> GetAll()
         {
-            return context.Schedules.ToList();
+            return context.OrdersSchedules.ToList();
         }
     }
 }

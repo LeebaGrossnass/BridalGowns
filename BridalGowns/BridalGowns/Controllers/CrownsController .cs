@@ -1,7 +1,8 @@
-﻿using DAL.API;
-using DAL.Models;
+﻿using BL.Implementation;
+using BL;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using BL.DTO;
 
 namespace BridalGowns.Controllers
 {
@@ -9,40 +10,40 @@ namespace BridalGowns.Controllers
     [ApiController]
     public class CrownsController : ControllerBase
     {
-        ICrownRepo crownRepo;
-        public CrownsController(ICrownRepo crownRepo)
+        CrownService crownService;
+        public CrownsController(BLManager manager)
         {
-            this.crownRepo = crownRepo;
+            this.crownService = manager.crownService;
         }
 
         [HttpGet]
-        public ActionResult<List<Crown>> GetAll()
+        public ActionResult<List<CrownDTO>> GetAll()
         {
-            return crownRepo.GetAll();
+            return crownService.GetAll();
         }
 
         [HttpGet("{CrownName}")]
-        public ActionResult<Crown> Get(string crownName)
+        public ActionResult<CrownDTO> Get(string crownName)
         {
-            return crownRepo.Get(crownName);
+            return crownService.Get(crownName);
         }
 
         [HttpPut]
-        public ActionResult<Crown> Update(Crown crown)
+        public ActionResult<CrownDTO> Update(CrownDTO crown)
         {
-            return crownRepo.Update(crown);
+            return crownService.Update(crown);
         }
 
         [HttpPost]
-        public ActionResult<Crown> Add(Crown crown)
+        public ActionResult<CrownDTO> Add(CrownDTO crown)
         {
-            return crownRepo.Add(crown);
+            return crownService.Add(crown);
         }
 
         [HttpDelete("{CrownName}")]
-        public ActionResult<Crown> Delete(String crownName)
+        public ActionResult<CrownDTO> Delete(String crownName)
         {
-            return crownRepo.Delete(crownName);
+            return crownService.Delete(crownName);
         }
 
 

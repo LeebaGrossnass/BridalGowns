@@ -6,6 +6,10 @@ namespace DAL.Models;
 
 public partial class BridalContext : DbContext
 {
+    public BridalContext()
+    {
+    }
+
     public BridalContext(DbContextOptions<BridalContext> options)
         : base(options)
     {
@@ -21,9 +25,16 @@ public partial class BridalContext : DbContext
 
     public virtual DbSet<Meeting> Meetings { get; set; }
 
+    public virtual DbSet<OrderSchedule> MeetingsSchedules { get; set; }
+
     public virtual DbSet<Order> Orders { get; set; }
 
-    public virtual DbSet<Schedule> Schedules { get; set; }
+    public virtual DbSet<OrdersSchedule> OrdersSchedules { get; set; }
+
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=H:\\BridalGowns\\BridalGowns\\BridalGowns\\DAL\\BridalGownDB.mdf;Integrated Security=True;Connect Timeout=30");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -66,8 +77,11 @@ public partial class BridalContext : DbContext
 
         modelBuilder.Entity<Crown>(entity =>
         {
-            entity.HasKey(e => e.CrownCode).HasName("PK__tmp_ms_x__39BC608B2F420D62");
+            entity.HasKey(e => e.CrownCode).HasName("PK__tmp_ms_x__39BC608B879BFB4B");
 
+            entity.Property(e => e.CrownCode)
+                .HasMaxLength(30)
+                .IsUnicode(false);
             entity.Property(e => e.ColorId).HasColumnName("ColorID");
             entity.Property(e => e.Description)
                 .IsRequired()
@@ -81,7 +95,6 @@ public partial class BridalContext : DbContext
                 .IsRequired()
                 .HasMaxLength(20)
                 .IsUnicode(false);
-            entity.Property(e => e.Qtty).HasColumnName("qtty");
 
             entity.HasOne(d => d.Color).WithMany(p => p.Crowns)
                 .HasForeignKey(d => d.ColorId)
@@ -109,6 +122,11 @@ public partial class BridalContext : DbContext
                 .IsRequired()
                 .HasMaxLength(20)
                 .IsUnicode(false);
+            entity.Property(e => e.Size)
+                .IsRequired()
+                .HasMaxLength(10)
+                .IsUnicode(false)
+                .IsFixedLength();
 
             entity.HasOne(d => d.Color).WithMany(p => p.Gowns)
                 .HasForeignKey(d => d.ColorId)
@@ -133,6 +151,20 @@ public partial class BridalContext : DbContext
                 .HasConstraintName("FK_ClientMeetings");
         });
 
+        modelBuilder.Entity<OrderSchedule>(entity =>
+        {
+            entity.HasKey(e => e.Code).HasName("PK__Meetings__A25C5AA6F2C349FC");
+
+            entity.ToTable("MeetingsSchedule");
+
+            entity.Property(e => e.Date).HasColumnType("datetime");
+
+            entity.HasOne(d => d.MeetingCodeNavigation).WithMany(p => p.MeetingsSchedules)
+                .HasForeignKey(d => d.MeetingCode)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_MeetingsMeetingsSchedule");
+        });
+
         modelBuilder.Entity<Order>(entity =>
         {
             entity.HasKey(e => e.OrderNumber).HasName("PK__Orders__CAC5E7424C1941A3");
@@ -145,6 +177,9 @@ public partial class BridalContext : DbContext
                 .HasMaxLength(10)
                 .IsUnicode(false)
                 .HasColumnName("ClientID");
+            entity.Property(e => e.CrownCode)
+                .HasMaxLength(30)
+                .IsUnicode(false);
             entity.Property(e => e.GownCode)
                 .IsRequired()
                 .HasMaxLength(30)
@@ -167,23 +202,55 @@ public partial class BridalContext : DbContext
                 .HasConstraintName("FK_GownOrders");
         });
 
-        modelBuilder.Entity<Schedule>(entity =>
+        modelBuilder.Entity<OrdersSchedule>(entity =>
         {
-            entity.HasKey(e => e.Code).HasName("PK__Schedule__A25C5AA627A92F08");
+            entity.HasKey(e => e.Code).HasName("PK__OrdersSc__A25C5AA6881954FA");
 
-            entity.ToTable("Schedule");
+            entity.ToTable("OrdersSchedule");
 
+            entity.Property(e => e.CrownCode)
+                .HasMaxLength(30)
+                .IsUnicode(false);
             entity.Property(e => e.Date).HasColumnType("date");
             entity.Property(e => e.GownCode)
                 .IsRequired()
                 .HasMaxLength(30)
                 .IsUnicode(false);
 
-            entity.HasOne(d => d.GownCodeNavigation).WithMany(p => p.Schedules)
+            entity.HasOne(d => d.CrownCodeNavigation).WithMany(p => p.OrdersSchedules)
+                .HasForeignKey(d => d.CrownCode)
+                .HasConstraintName("FK_CrownSchedule");
+
+            entity.HasOne(d => d.GownCodeNavigation).WithMany(p => p.OrdersSchedules)
                 .HasForeignKey(d => d.GownCode)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_GownSchedule");
         });
+
+        //modelBuilder.Entity<Schedule>(entity =>
+        //{
+        //    entity.HasKey(e => e.Code).HasName("PK__Schedule__A25C5AA627A92F08");
+
+        //    entity.ToTable("Schedule");
+
+        //    entity.Property(e => e.CrownCode)
+        //        .HasMaxLength(30)
+        //        .IsUnicode(false);
+        //    entity.Property(e => e.Date).HasColumnType("date");
+        //    entity.Property(e => e.GownCode)
+        //        .IsRequired()
+        //        .HasMaxLength(30)
+        //        .IsUnicode(false);
+
+        //    entity.HasOne(d => d.CrownCodeNavigation).WithMany(p => p.Schedules)
+        //        .HasForeignKey(d => d.CrownCode)
+        //        .HasConstraintName("FK_CrownsSchedule");
+
+        //    entity.HasOne(d => d.GownCodeNavigation).WithMany(p => p.Schedules)
+        //        .HasForeignKey(d => d.GownCode)
+        //        .OnDelete(DeleteBehavior.ClientSetNull)
+        //        .HasConstraintName("FK_GownsSchedule");
+        //});
 
         OnModelCreatingPartial(modelBuilder);
     }
