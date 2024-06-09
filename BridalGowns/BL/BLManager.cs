@@ -20,13 +20,15 @@ namespace BL
         public MeetingService meetingService { get; }
         public OrdersScheduleService ordersScheduleService { get; }
         public OrderService orderService { get; }
+        public AccessRightService accessRightService { get; }
 
 
-        public BLManager()
+        public BLManager(string connString)
         {
             ServiceCollection services = new();
-            services.AddScoped<DALManager>();
+            //services.AddScoped<DALManager>();
 
+            services.AddScoped(d => new DALManager(connString));
             services.AddScoped< IClientService, ClientService>();
             services.AddScoped<ICrownService, CrownService>();
             services.AddScoped<IGownService, GownService>();
@@ -34,7 +36,8 @@ namespace BL
             services.AddScoped<IMeetingService, MeetingService>();
             services.AddScoped<IOrderService,OrderService>();
             services.AddScoped<IOrdersScheduleService, OrdersScheduleService>();
-
+            services.AddScoped<IAccessRightService, AccessRightService>();
+            
 
             ServiceProvider servicesProvider = services.BuildServiceProvider();
             clientService = (ClientService)servicesProvider.GetRequiredService<IClientService>();
@@ -44,8 +47,7 @@ namespace BL
             meetingService = (MeetingService)servicesProvider.GetRequiredService<IMeetingService>();
             ordersScheduleService = (OrdersScheduleService)servicesProvider.GetRequiredService<IOrdersScheduleService>();
             orderService = (OrderService)servicesProvider.GetRequiredService<IOrderService>();
-
-
+            accessRightService = (AccessRightService)servicesProvider.GetRequiredService<IAccessRightService>();
         }
     
     }

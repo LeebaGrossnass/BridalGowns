@@ -23,7 +23,7 @@ namespace BL.Implementation
 
         public MeetingScheduleDTO Add(MeetingScheduleDTO meetingSchedule)
         {
-            OrderSchedule s = new OrderSchedule();
+            MeetingsSchedule s = new MeetingsSchedule();
             s.Date = meetingSchedule.Date;
             s.MeetingCode = meetingSchedule.MeetingCode;
             meetingSchedules.Add(s);
@@ -32,13 +32,13 @@ namespace BL.Implementation
 
         public MeetingScheduleDTO Delete(DateTime time)
         {
-            OrderSchedule s = meetingSchedules.Delete(time);
+            MeetingsSchedule s = meetingSchedules.Delete(time);
             return new MeetingScheduleDTO() { Date = time,MeetingCode = s.MeetingCode };
            
         }
         public MeetingScheduleDTO Get(DateTime time)
         {
-            OrderSchedule s = meetingSchedules.Get(time);
+            MeetingsSchedule s = meetingSchedules.Get(time);
             if (s == null)
             {
                 return null;
@@ -48,7 +48,7 @@ namespace BL.Implementation
         }
         public List<MeetingScheduleDTO> GetAll()
         {
-            List<OrderSchedule> list = meetingSchedules.GetAll();
+            List<MeetingsSchedule> list = meetingSchedules.GetAll();
             List<MeetingScheduleDTO> result = new List<MeetingScheduleDTO>();
             for (int i = 0; i < list.Count; i++)
             {

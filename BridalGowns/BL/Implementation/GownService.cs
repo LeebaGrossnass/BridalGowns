@@ -28,8 +28,11 @@ namespace BL.Implementation
             g.Description = gown.Description;
             g.Price = gown.Price;
             g.ColorId = gown.ColorId;
-            //g.Size = gown.Size;
             g.Image = gown.Image;
+            g.Image1 = gown.Image1;
+            g.Image2 = gown.Image2;
+            g.Image3 = gown.Image3;
+            g.Image4 = gown.Image4;
             gowns.Add(g);
             return gown;
         }
@@ -44,8 +47,11 @@ namespace BL.Implementation
                 Description = g.Description,
                 Price = g.Price,
                 ColorId = g.ColorId,
-                //Size = g.Size,
-                Image = g.Image
+                Image = g.Image,
+                Image1 = g.Image1,
+                Image2 = g.Image2,
+                Image3 = g.Image3,
+                Image4 = g.Image4
             };
         }
 
@@ -56,7 +62,7 @@ namespace BL.Implementation
             {
                 return null;
             }
-            GownDTO gown = new GownDTO(g.GownCode, g.Name, g.Description/*,g.size*/, g.ColorId, g.Price, g.Image);
+            GownDTO gown = new GownDTO(g.GownCode, g.Name, g.Description, g.ColorId, g.Price, g.Image, g.Image1, g.Image2, g.Image3, g.Image4);
             return gown;
         }
 
@@ -66,7 +72,7 @@ namespace BL.Implementation
             List<GownDTO> result = new List<GownDTO>();
             for (int i = 0; i < list.Count; i++)
             {
-                result.Add(new GownDTO(list[i].GownCode, list[i].Name, list[i].Description, list[i].Price, list[i].ColorId, /*list[i].Size,*/ list[i].Image));
+                result.Add(new GownDTO(list[i].GownCode, list[i].Name, list[i].Description, list[i].Price, list[i].ColorId, list[i].Image, list[i].Image1, list[i].Image2, list[i].Image3, list[i].Image4));
             }
             return result;
         }
@@ -79,8 +85,11 @@ namespace BL.Implementation
             g.Description = gown.Description;
             g.Price = gown.Price;
             g.Image = gown.Image;
+            g.Image1 = gown.Image1;
+            g.Image2 = gown.Image2;
+            g.Image3 = gown.Image3;
+            g.Image4 = gown.Image4;
             g.ColorId = gown.ColorId;
-            //g.Size = gown.Size;
             gowns.Update(g);
             return gown;
         }

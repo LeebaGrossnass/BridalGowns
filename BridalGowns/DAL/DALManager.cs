@@ -1,6 +1,8 @@
-﻿using DAL.API;
+﻿using DAL;
+using DAL.API;
 using DAL.Implementation;
 using DAL.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -20,19 +22,21 @@ namespace DAL
         public MeetingRepo meetingRepo { get; }
         public OrderRepo orderRepo { get; }
         public OrdersScheduleRepo ordersScheduleRepo { get; }
-        public DALManager() 
+        public AccessRightRepo accessRightRepo { get; }
+        public DALManager(string connString) 
         {
             ServiceCollection services = new();
 
-            services.AddDbContext<BridalContext>();
+            services.AddDbContext<BridalContext>((op => op.UseSqlServer(connString)));
             services.AddScoped<IClientRepo, ClientRepo>();
             services.AddScoped<IColorRepo, ColorRepo>();
             services.AddScoped<ICrownRepo, CrownRepo>();
             services.AddScoped<IGownRepo, GownRepo>();
             services.AddScoped<IMeetingScheduleRepo, MeetingScheduleRepo>();
             services.AddScoped<IMeetingRepo, MeetingRepo>();
-            services.AddScoped<IOrderRepo, OrderRepo>();
+            services.AddScoped<IOrderRepo, OrderRepo>();    
             services.AddScoped<IOrdersScheduleRepo, OrdersScheduleRepo>();
+            services.AddScoped<IAccessRightRepo, AccessRightRepo>();
 
             ServiceProvider serviceProvider = services.BuildServiceProvider();
 
@@ -44,6 +48,10 @@ namespace DAL
             meetingRepo = (MeetingRepo)serviceProvider.GetRequiredService<IMeetingRepo>();
             orderRepo = (OrderRepo)serviceProvider.GetRequiredService<IOrderRepo>();
             ordersScheduleRepo = (OrdersScheduleRepo)serviceProvider.GetRequiredService<IOrdersScheduleRepo>();
+            accessRightRepo = (AccessRightRepo)serviceProvider.GetRequiredService<IAccessRightRepo>();
         }
     }
 }
+
+
+

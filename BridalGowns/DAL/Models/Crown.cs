@@ -23,4 +23,5 @@ public partial class Crown
 
     public virtual ICollection<OrdersSchedule> OrdersSchedules { get; set; } = new List<OrdersSchedule>();
 
+    public virtual ICollection<Schedule> Schedules { get; set; } = new List<Schedule>();
 }

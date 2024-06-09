@@ -10,7 +10,7 @@ public class ClientDTO
     [JsonConstructor]
     
     public ClientDTO() { }
-    public ClientDTO(string id, string firstName, string lastName, string phonNumber, string email)
+    public ClientDTO(string id, string firstName, string lastName, string phonNumber, string email, string password)
     {
         this.Id = id;
         this.FirstName = firstName;
@@ -27,6 +27,8 @@ public class ClientDTO
     public string PhoneNumber { get; set; }
 
     public string Email { get; set; }
+
+    public string Password { get; set; }
 
     public virtual ICollection<MeetingDTO> Meetings { get; set; } = new List<MeetingDTO>();
 

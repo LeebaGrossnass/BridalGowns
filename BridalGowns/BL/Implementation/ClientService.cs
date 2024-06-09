@@ -28,6 +28,7 @@ namespace BL.Implementation
             c.FirstName = client.FirstName;
             c.Email = client.Email;
             c.PhoneNumber = client.PhoneNumber;
+            c.Password = client.Password;
             clients.Add(c);
             return client;
         }
@@ -39,7 +40,7 @@ namespace BL.Implementation
             {
                 return null;
             }
-            ClientDTO client = new ClientDTO(c.Id,c.FirstName,c.LastName,c.PhoneNumber,c.Email);
+            ClientDTO client = new ClientDTO(c.Id,c.FirstName,c.LastName,c.PhoneNumber,c.Email, c.Password);
             return client;
         }
 
@@ -49,7 +50,7 @@ namespace BL.Implementation
             List<ClientDTO> result = new List<ClientDTO>();
             for (int i = 0; i < list.Count; i++)
             {
-                result.Add(new ClientDTO(list[i].Id, list[i].FirstName, list[i].LastName, list[i].PhoneNumber, list[i].Email));
+                result.Add(new ClientDTO(list[i].Id, list[i].FirstName, list[i].LastName, list[i].PhoneNumber, list[i].Email, list[i].Password));
             }
             return result;
         }
@@ -62,6 +63,7 @@ namespace BL.Implementation
             c.LastName = client.LastName;
             c.PhoneNumber = client.PhoneNumber;
             c.Email = client.Email;
+            c.Password = client.Password;
             clients.Update(c);
             return client;
         }

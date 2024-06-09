@@ -9,12 +9,12 @@ namespace DAL.API
 {
     public interface IMeetingScheduleRepo
     {
-        OrderSchedule Get(DateTime time);
+        MeetingsSchedule Get(DateTime time);
 
-        OrderSchedule Add(OrderSchedule meetingsSchedule);
-        List<OrderSchedule> GetAll();
+        MeetingsSchedule Add(MeetingsSchedule meetingsSchedule);
+        List<MeetingsSchedule> GetAll();
 
 
-        OrderSchedule Delete(DateTime time);
+        MeetingsSchedule Delete(DateTime time);
     }
 }

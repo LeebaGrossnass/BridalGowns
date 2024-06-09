@@ -13,5 +13,5 @@ public partial class Meeting
 
     public virtual Client Client { get; set; }
 
-    public virtual ICollection<OrderSchedule> MeetingsSchedules { get; set; } = new List<OrderSchedule>();
+    public virtual ICollection<MeetingsSchedule> MeetingsSchedules { get; set; } = new List<MeetingsSchedule>();
 }

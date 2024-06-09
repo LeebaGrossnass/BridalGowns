@@ -9,12 +9,11 @@ public partial class GownDTO
     {
     }
 
-    public GownDTO(string GownCode, string Name, string Description, /*int[] Size,*/ int ColorId, int Price, string Image)
+    public GownDTO(string GownCode, string Name, string Description, int ColorId, int Price, string Image, string image1, string image2, string image3, string image4)
     {
         this.GownCode = GownCode;
         this.Name = Name;
         this.Description = Description;
-        //this.Size = Size;
         this.ColorId = ColorId;
         this.Price = Price;
         this.Image = Image;
@@ -25,13 +24,16 @@ public partial class GownDTO
 
     public string Description { get; set; }
 
-    //public int[] Size { get; set; }
 
     public int ColorId { get; set; }
 
     public int Price { get; set; }
 
     public string Image { get; set; }
+    public string Image1 { get; set; }
+    public string Image2 { get; set; }
+    public string Image3 { get; set; }
+    public string Image4 { get; set; }
 
     public virtual ColorDTO Color { get; set; }
 

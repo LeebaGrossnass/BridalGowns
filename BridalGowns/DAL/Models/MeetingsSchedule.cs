@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace DAL.Models;
 
-public partial class OrderSchedule
+public partial class MeetingsSchedule
 {
     public int Code { get; set; }
 

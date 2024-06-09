@@ -17,14 +17,14 @@ namespace DAL.Implementation
             this.context = context;
         }
 
-        public OrderSchedule Add(OrderSchedule meetingsSchedule)
+        public MeetingsSchedule Add(MeetingsSchedule meetingsSchedule)
         {
             context.MeetingsSchedules.Add(meetingsSchedule);
             context.SaveChanges();
             return meetingsSchedule;
         }
 
-        public OrderSchedule Delete(DateTime time)
+        public MeetingsSchedule Delete(DateTime time)
         {
             try
             {
@@ -40,7 +40,7 @@ namespace DAL.Implementation
             }
         }
 
-        public OrderSchedule Get(DateTime time)
+        public MeetingsSchedule Get(DateTime time)
         {
             try
             {
@@ -52,7 +52,7 @@ namespace DAL.Implementation
                 throw new Exception($"Error in getting single date {time} data");
             }
         }
-        public List<OrderSchedule> GetAll()
+        public List<MeetingsSchedule> GetAll()
         {
             return context.MeetingsSchedules.ToList();
         }
