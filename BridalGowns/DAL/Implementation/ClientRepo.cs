@@ -1,5 +1,6 @@
 ﻿using DAL.API;
 using DAL.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -24,21 +25,24 @@ namespace DAL.Implementation
             return client;
         }
 
-        public Client Get(string id)
+
+
+        public Client Get(string name)
         {
             try
             {
-                return context.Clients.Where(client => client.Id == id).FirstOrDefault();
+                return context.Clients.Where(client => client.FirstName == name).FirstOrDefault();
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.ToString());
-                throw new Exception($"Error in getting single Gown {id} data");
+                throw new Exception($"Error in getting single Gown {name} data");
             }
         }
 
         public List<Client> GetAll()
         {
+            
             return context.Clients.ToList();
         }
 
@@ -47,19 +51,36 @@ namespace DAL.Implementation
             return context;
         }
 
+        //public Client Update(Client client)
+        //{
+        //    foreach (Client c in context.Clients.ToList())
+        //    {
+        //        if (c.Id == client.Id)
+        //        {
+        //            c.Email = client.Email;
+        //            c.PhoneNumber = client.PhoneNumber;
+        //            break;
+        //        }
+        //    }
+        //    context.SaveChanges();
+        //    return client;
+        //}
         public Client Update(Client client)
         {
-            foreach (Client c in context.Clients.ToList())
+            var existingClient = context.Clients.FirstOrDefault(c => c.Id == client.Id);
+            if (existingClient != null)
             {
-                if (c.Id == client.Id)
-                {
-                    c.Email = client.Email;
-                    c.PhoneNumber = client.PhoneNumber;
-                    break;
-                }
+                existingClient.FirstName = client.FirstName;
+                existingClient.LastName = client.LastName;
+                existingClient.Email = client.Email;
+                existingClient.PhoneNumber = client.PhoneNumber;
+                existingClient.Password = client.Password;
+
+                context.SaveChanges();
             }
-            context.SaveChanges();
-            return client;
+            return existingClient;
         }
     }
 }
+
+

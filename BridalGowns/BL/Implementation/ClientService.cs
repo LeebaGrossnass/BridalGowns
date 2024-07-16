@@ -1,6 +1,7 @@
 ﻿using BL.API;
 using BL.DTO;
 using DAL;
+using DAL.API;
 using DAL.Implementation;
 using DAL.Models;
 using System;
@@ -33,9 +34,9 @@ namespace BL.Implementation
             return client;
         }
 
-        public ClientDTO Get(string id)
+        public ClientDTO Get(string name)
         {
-            Client c =  clients.Get(id);
+            Client c =  clients.Get(name);
             if (c == null)
             {
                 return null;
@@ -55,17 +56,43 @@ namespace BL.Implementation
             return result;
         }
 
-        public ClientDTO Update(ClientDTO client)
+
+        //public ClientDTO Update(ClientDTO client)
+        //{
+        //    var updatedClient = new Client
+        //    {
+        //        Id = client.Id,
+        //        FirstName = client.FirstName,
+        //        LastName = client.LastName,
+        //        Email = client.Email,
+        //        PhoneNumber = client.PhoneNumber,
+        //        Password = client.Password
+        //    };
+
+        //    clients.Update(updatedClient);
+        //    return client;
+        //}
+
+        public ClientDTO Update(ClientDTO clientDTO)
         {
-            Client c = new Client();
-            c.Id = client.Id;
-            c.FirstName = client.FirstName;
-            c.LastName = client.LastName;
-            c.PhoneNumber = client.PhoneNumber;
-            c.Email = client.Email;
-            c.Password = client.Password;
-            clients.Update(c);
-            return client;
+            Client client = new Client
+            {
+                Id = clientDTO.Id,
+                FirstName = clientDTO.FirstName,
+                LastName = clientDTO.LastName,
+                Email = clientDTO.Email,
+                PhoneNumber = clientDTO.PhoneNumber,
+                Password = clientDTO.Password
+            };
+
+            Client updatedClient = clients.Update(client);
+
+            if (updatedClient == null)
+            {
+                return null;
+            }
+
+            return new ClientDTO(updatedClient.Id, updatedClient.FirstName, updatedClient.LastName, updatedClient.PhoneNumber, updatedClient.Email, updatedClient.Password);
         }
 
 

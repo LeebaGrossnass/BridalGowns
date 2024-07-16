@@ -11,7 +11,7 @@ namespace DAL.API
     {
         List<Client> GetAll();
 
-        Client Get(string id);
+        Client Get(string name);
 
         Client Add(Client client);
 

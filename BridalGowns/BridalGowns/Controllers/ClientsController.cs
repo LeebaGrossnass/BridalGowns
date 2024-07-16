@@ -1,4 +1,5 @@
 ﻿using BL;
+using BL.API;
 using BL.DTO;
 using BL.Implementation;
 using Microsoft.AspNetCore.Http;
@@ -28,11 +29,38 @@ namespace BridalGowns.Controllers
             return clientService.Get(ID);
         }
 
-        [HttpPut("{ID}")]
-        public ActionResult<ClientDTO> Update(ClientDTO client)
+        [HttpPut("{id}")]
+        public ActionResult<ClientDTO> Update(string id, ClientDTO clientDTO)
         {
-            return clientService.Update(client);
+            if (id != clientDTO.Id)
+            {
+                return BadRequest("The ID in the URL does not match the ID in the client data.");
+            }
+
+            var updatedClient = clientService.Update(clientDTO);
+            if (updatedClient == null)
+            {
+                return NotFound($"Client with ID {id} not found.");
+            }
+
+            return Ok(updatedClient);
         }
+        //[HttpPut("{name}")]
+        //public ActionResult<ClientDTO> Update(string name, ClientDTO clientDTO)
+        //{
+        //    if (name != clientDTO.FirstName)
+        //    {
+        //        return BadRequest();
+        //    }
+
+        //    var updatedClient = clientService.Update(clientDTO);
+        //    if (updatedClient == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return updatedClient;
+        //}
 
         [HttpPost]
         public ActionResult<ClientDTO> Add(ClientDTO client)
